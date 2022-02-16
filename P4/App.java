@@ -5,7 +5,7 @@ public class App{
 			value = App.main("Agenda");
 			OpcionAgenda pregunta = OpcionAgenda.values()[value];
 			App.evaluar(pregunta);
-		}while(value != 6);
+		}while(OpcionAgenda.values()[value] != OpcionAgenda.SALIR);
 	}
 	
 	static int main(String Agenda){
@@ -29,14 +29,14 @@ public class App{
 					String dni = Leer.porTeclado();
 					int edad = Integer.parseInt(Leer.porTeclado());
 					String sexo = Leer.porTeclado();
-					Agenda.creacionPersona(nombre,dni,edad,sexo);
+					Agenda.creacionPersona(new Persona(nombre,dni,edad,sexo));
 					break;
 					}
 
 				case BUSCAR_PERSONA:
 					{
-						System.out.println("Que persona quieres buscar?");
-						int i = Agenda.personaABuscar(new Persona(Leer.porTeclado(),Leer.porTeclado(),Integer.parseInt(Leer.porTeclado()),Leer.porTeclado()));
+						System.out.println("Que persona quieres buscar?(Poner solo DNI)");
+						int i = Agenda.personaABuscar(new Persona(Leer.porTeclado()));
 						if (i != -1){
 							System.out.println("Persona encontrada");
 						}

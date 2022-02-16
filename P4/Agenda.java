@@ -1,9 +1,9 @@
 public class Agenda{
 	static  Persona personas[] = new Persona[20];
 	static int num_per = 0;
-	static void creacionPersona(String nombre, String dni, int edad, String sexo){
+	static void creacionPersona(Persona personacrear){
 							if(num_per < personas.length) {
-								personas[num_per] = new Persona(nombre,dni,edad,sexo);
+								personas[num_per] = personacrear;
 								num_per += 1 ;
 							}
 							else

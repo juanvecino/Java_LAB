@@ -10,6 +10,10 @@ public class Persona{
 		this.sexo = sexo;
 	}
 
+	Persona(String dni){
+		this.dni = dni;
+	}
+
 	public String getDNI(){
 		return this.dni;
 	}
@@ -23,7 +27,7 @@ public class Persona{
 	public boolean equals(Object o){
 		if(o instanceof Persona){
 			Persona c = (Persona)o;
-			if(this.getDNI().equals(c.getDNI()))
+			if(dni.equals(c.getDNI()))
 				return true;
 			else
 				return false;
