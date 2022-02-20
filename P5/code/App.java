@@ -28,7 +28,7 @@ class App
     ConcursanteSoltero cs5 = new ConcursanteSoltero(Concursante.Sexo.MASCULINO, "Miguel", 24);
     ConcursanteSoltero cs6 = new ConcursanteSoltero(Concursante.Sexo.FEMENINO, "María", 22);
     ConcursanteSoltero cs7 = new ConcursanteSoltero(Concursante.Sexo.MASCULINO, "Vicente", 29);
-    ConcursanteSoltero cs8 = new ConcursanteSoltero(Concursante.Sexo.FEMENINO, "Paula", 25);
+    ConcursanteSoltero cs8 = new ConcursanteSoltero(Concursante.Sexo.FEMENINO, "Palita", 25);
     ConcursanteSoltero cs9 = new ConcursanteSoltero(Concursante.Sexo.MASCULINO, "Fernando", 21);
     ConcursanteSoltero cs10 = new ConcursanteSoltero(Concursante.Sexo.FEMENINO, "Bea", 23);
    
@@ -65,12 +65,13 @@ class App
   
 
     for(int dia=1; dia<30; dia++){
+      System.out.println("DIA "+dia+":");
       if(dia%7 == 0){
         concurso.hoguera();
       }
-      for(Concursante concursante_ : concurso.getConcursantes){
+      for(Concursante concursante_ : concurso.getConcursantes()){
         if(concursante_ instanceof ConcursanteSoltero concursante){
-          concurso.tentacion((int)r.nextGaussian()*15000+20000, concursante.getHombre());
+          concurso.tentacion((int)r.nextGaussian()*15000+30000, concursante.getHombre());
         }
       }
 

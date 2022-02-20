@@ -83,8 +83,8 @@ public class Concurso{
     System.out.println("Solteros eliminados: " +eliminado1.getNombre() +" y "+eliminado2.getNombre());
 
 
-    eliminarConcursante(concursantesSolterosHombres[hombreFuera]);
-    eliminarConcursante(concursantesSolterosMujeres[hombreFuera]);
+    eliminarConcursante(eliminado1);
+    eliminarConcursante(eliminado2);
   }
 
   public void tentacion(int tentacion, boolean sexo){
@@ -128,6 +128,7 @@ public class Concurso{
           personaeliminar = r.nextInt(longM);
           if(tentacion > concursantesParejaMujer[personaeliminar].getEstabilidad())
             {
+              System.out.println("Han caido en la tentacion "+concursantesParejaMujer[personaeliminar].getNombre()+" y "+concursantesParejaMujer[personaeliminar].getPareja().getNombre());
               eliminarConcursante(concursantesParejaMujer[personaeliminar].getPareja());
               eliminarConcursante(concursantesParejaMujer[personaeliminar]);
             }
@@ -138,6 +139,7 @@ public class Concurso{
           personaeliminar = r.nextInt(longH);
           if(tentacion > concursantesParejaHombre[personaeliminar].getEstabilidad())
           {
+            System.out.println("Han caido en la tentacion "+concursantesParejaHombre[personaeliminar].getNombre()+" y "+concursantesParejaHombre[personaeliminar].getPareja().getNombre());
             eliminarConcursante(concursantesParejaHombre[personaeliminar].getPareja());
             eliminarConcursante(concursantesParejaHombre[personaeliminar]);
           }
