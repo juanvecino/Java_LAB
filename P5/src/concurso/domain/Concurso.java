@@ -1,10 +1,14 @@
+package src.concurso.domain;
 import java.util.Random;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 public class Concurso{ 
   private Concursante[] concursantes = new Concursante[30];
+  private ConcursanteConPareja[] parejasrotas = new ConcursanteConPareja[2];
   private int numConcursantes = 0;
   private Random r = new Random();
-    
+
   public void addPareja(ConcursanteConPareja c1, ConcursanteConPareja c2){
     this.addConcursante(c1);
     this.addConcursante(c2);
@@ -46,6 +50,10 @@ public class Concurso{
       
       return true;
     }
+  }
+
+  public ConcursanteConPareja[] getParejasRotasNormalRandom(){
+    return parejasrotas;
   }
 
   public void hoguera(){
@@ -92,7 +100,6 @@ public class Concurso{
     ConcursanteConPareja[] concursantesParejaMujer = new ConcursanteConPareja[20];
     int numparejaH = 0;
     int numparejaM = 0;
-    int longH=0;
     int longM=0;
     int personaeliminar = 0;
 
@@ -112,11 +119,6 @@ public class Concurso{
           }
     }
 
-    for(ConcursanteConPareja persona : concursantesParejaHombre){
-      if(persona != null)
-        ++longH;
-    }
-
     for(ConcursanteConPareja persona : concursantesParejaMujer){
       if(persona != null)
         ++longM;
@@ -129,17 +131,19 @@ public class Concurso{
           if(tentacion > concursantesParejaMujer[personaeliminar].getEstabilidad())
             {
               System.out.println("Han caido en la tentacion "+concursantesParejaMujer[personaeliminar].getNombre()+" y "+concursantesParejaMujer[personaeliminar].getPareja().getNombre());
+              parejasrotas[0] = concursantesParejaMujer[personaeliminar];
+              parejasrotas[1] = concursantesParejaMujer[personaeliminar].getPareja();
               eliminarConcursante(concursantesParejaMujer[personaeliminar].getPareja());
               eliminarConcursante(concursantesParejaMujer[personaeliminar]);
-            }
-          
+            } 
         }
         else
         {
-          personaeliminar = r.nextInt(longH);
           if(tentacion > concursantesParejaHombre[personaeliminar].getEstabilidad())
           {
             System.out.println("Han caido en la tentacion "+concursantesParejaHombre[personaeliminar].getNombre()+" y "+concursantesParejaHombre[personaeliminar].getPareja().getNombre());
+            parejasrotas[0]= concursantesParejaHombre[personaeliminar];
+            parejasrotas[1]= concursantesParejaHombre[personaeliminar].getPareja();
             eliminarConcursante(concursantesParejaHombre[personaeliminar].getPareja());
             eliminarConcursante(concursantesParejaHombre[personaeliminar]);
           }
@@ -147,6 +151,30 @@ public class Concurso{
         }
       }
 
+  }
+
+  public void addDia(LocalDate date)
+  {
+    for(Concursante concursante_:concursantes)
+      if(concursante_ != null && concursante_ instanceof ConcursanteConPareja concursante)
+        {
+          concursante.tiempoRelacion(concursante.getDate(),date);
+          concursante.setestabilidadPareja(concursante.getTiempoRelacion(),concursante.getPareja().getEdad(),concursante.getEdad(),concursante.getRelacion(),concursante.getInfidelidad());
+        }
+        
+  }
+
+  public void celebrarDia(LocalDate dia)
+  {
+    addDia(dia);
+    if(dia.getDayOfWeek() == DayOfWeek.SUNDAY){
+      hoguera();
+    }
+    for(Concursante concursante_ : getConcursantes()){
+      if(concursante_ instanceof ConcursanteSoltero concursante){
+        tentacion((int)r.nextGaussian()*15000+30000, concursante.getHombre());
+      }
+    }
   }
   
   public String toString()
@@ -167,6 +195,4 @@ public class Concurso{
   public Concursante[] getConcursantes(){
     return concursantes;
   }
-  
-
 }
