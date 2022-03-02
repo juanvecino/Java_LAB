@@ -1,12 +1,16 @@
 package pintar.domain;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collection;
 
 public class Lienzo extends Canvas
 {
-	
-	ArrayList<Figura> figuras = new ArrayList<Figura>();
+	private Collection<Figura> figuras;
+
+	public Lienzo()
+	{
+		figuras = new ArrayList<Figura>();
+	}
 
 	public void addFigura(Figura c)
 	{
@@ -15,10 +19,14 @@ public class Lienzo extends Canvas
 
 	public void paint(Graphics g)
 	{	
+		for(Figura figura:figuras)
+			figura.pintar(g);
+		//Posible Opcion2 2
+		/*
 		Iterator<Figura> it = figuras.iterator();
-        while(it.hasNext()){
-            it.next().pintar(g);
-        }
+			while(it.hasNext())
+				it.next().pintar(g);
+		*/
 	}
 
 }
